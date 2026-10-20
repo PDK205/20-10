@@ -1,9 +1,9 @@
 # Lá thư 20/10
 
-Một trang web nhỏ cho ngày Phụ nữ Việt Nam: viết tên lên phong bì, bấm mở thư, phong bì lật lại, vỡ dấu sáp, lá thư trượt ra với lời chúc viết tay.
+Thư chúc mừng ngày Phụ nữ Việt Nam của Khang. Ai mở link cũng nhập tên của mình, phong bì lật lại, vỡ dấu sáp và lá thư trượt ra với lời chúc viết tay.
+
+Mỗi cái tên nhận được một bông hoa riêng (hồng, cúc họa mi, hướng dương, đào, mai, sen, cẩm tú cầu…). Bông hoa hiện ngay trên ô nhập tên và trên tem thư khi đang gõ, rồi hiện to ở đầu thư.
 
 - Xem trang: https://pdk205.github.io/20-10/
-- Gửi link có sẵn tên người nhận (và tên người ký, không bắt buộc):
-  `https://pdk205.github.io/20-10/?to=Lan&from=Minh`
 
 Toàn bộ trang nằm trong `index.html`. `og.png` là ảnh xem trước khi chia sẻ link lên Messenger, Zalo, Facebook.
