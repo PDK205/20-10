@@ -351,10 +351,10 @@ h1 em{color:var(--accent)}
   <form class="share" id="share" novalidate role="dialog" aria-modal="true" aria-labelledby="shareTitle">
     <button class="close" type="button" id="shareClose" aria-label="Đóng">×</button>
     <h2 id="shareTitle">Gửi một lá thư cho người khác</h2>
-    <p>Nhập tên người nhận để tạo link có sẵn tên trên phong bì. Người nhận chỉ cần mở link và bấm mở thư.</p>
+    <p>Cả hai ô đều không bắt buộc. Có tên người nhận thì phong bì ghi sẵn tên họ. Để trống thì người mở link tự nhập tên của mình. Có tên bạn thì thư ký tên bạn, để trống thì ký Khang.</p>
     <div class="share-grid">
-      <label for="shareTo">Tên người nhận<input id="shareTo" maxlength="28" autocomplete="off" placeholder="Ví dụ: Minh Anh"></label>
-      <label for="shareFrom">Tên bạn, để ký cuối thư<input id="shareFrom" maxlength="28" autocomplete="off" placeholder="Không bắt buộc"></label>
+      <label for="shareTo">Tên người nhận<input id="shareTo" maxlength="28" autocomplete="off" placeholder="Để trống: người nhận tự điền"></label>
+      <label for="shareFrom">Tên bạn, để ký cuối thư<input id="shareFrom" maxlength="28" autocomplete="off" placeholder="Để trống: ký tên Khang"></label>
     </div>
     <div class="preview" id="preview" hidden><i id="previewImg"></i><span id="previewText"></span></div>
     <div><button class="btn primary" type="submit">Tạo link và sao chép</button></div>
@@ -893,6 +893,7 @@ document.querySelectorAll('.js-make').forEach(b=>b.addEventListener('click',open
 $('#shareClose').addEventListener('click',closeSheet);
 sheet.addEventListener('click',e=>{if(e.target===sheet)closeSheet()});
 addEventListener('keydown',e=>{if(e.key==='Escape'&&!sheet.hidden)closeSheet()});
+shareFrom.addEventListener('input',()=>{shareMsg.textContent='';$('#shareOut').hidden=true});
 shareTo.addEventListener('input',()=>{
   const n=fmt(shareTo.value),pv=$('#preview');pv.hidden=!n;shareMsg.textContent='';$('#shareOut').hidden=true;
   if(!n)return;const f=flowerFor(n);
@@ -900,25 +901,27 @@ shareTo.addEventListener('input',()=>{
   const t=$('#previewText');t.textContent='';t.append(`${n} sẽ nhận được bông hoa `,Object.assign(document.createElement('b'),{textContent:f.title}));
 });
 function buildLink(){
-  const to=fmt(shareTo.value),me=fmt(shareFrom.value);if(!to)return null;
+  const to=fmt(shareTo.value),me=fmt(shareFrom.value);
   const base=/\.github\.io$/.test(location.hostname)?location.origin+location.pathname:SITE;
-  const p=new URLSearchParams({to});if(me)p.set('from',me);
-  return{url:`${base}?${p}`,to};
+  const p=new URLSearchParams();if(to)p.set('to',to);if(me)p.set('from',me);
+  const q=p.toString();
+  return{url:q?`${base}?${q}`:base,to,me};
 }
 async function copyLink(){
-  try{await navigator.clipboard.writeText(shareLink.value);shareMsg.textContent='Đã sao chép link. Dán vào tin nhắn để gửi nhé ♡'}
+  const l=buildLink(),who=l.to?`Link dành cho ${l.to}`:'Ai mở link cũng được hỏi tên rồi nhận thư';
+  const sign=`, ký tên ${l.me||'Khang'}`;
+  try{await navigator.clipboard.writeText(shareLink.value);shareMsg.textContent=`Đã sao chép link. ${who}${sign}.`}
   catch(e){shareLink.focus();shareLink.select();shareMsg.textContent='Link đã được bôi đen, bạn bấm Sao chép trên máy nhé'}
 }
 share.addEventListener('submit',e=>{
   e.preventDefault();const l=buildLink();
-  if(!l){shareMsg.textContent='Bạn nhập tên người nhận trước nhé';shareTo.focus();return}
   shareLink.value=l.url;$('#shareOut').hidden=false;copyLink();
 });
 $('#copyLink').addEventListener('click',copyLink);
 shareLink.addEventListener('focus',()=>shareLink.select());
 $('#nativeShare').addEventListener('click',async()=>{
-  const l=buildLink();if(!l)return;
-  try{await navigator.share({title:'Có một lá thư đang chờ bạn',text:`${l.to} ơi, có thư cho bạn nè 💌`,url:l.url})}
+  const l=buildLink();
+  try{await navigator.share({title:'Có một lá thư đang chờ bạn',text:l.to?`${l.to} ơi, có thư cho bạn nè 💌`:'Có một lá thư đang chờ bạn 💌',url:l.url})}
   catch(e){if(e&&e.name!=='AbortError')shareMsg.textContent='Máy này chưa chia sẻ nhanh được, bạn dùng nút Sao chép nhé'}
 });
 })();
