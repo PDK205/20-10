@@ -7,4 +7,4 @@ Mỗi cái tên nhận được một bông hoa riêng (hồng, cúc họa mi, h
 - Xem trang: https://pdk205.github.io/20-10/
 - Gửi thư có sẵn tên: `https://pdk205.github.io/20-10/?to=Lan&from=Minh` (link gốc không có `from` thì ký tên Khang; `from=` để trống là gửi ẩn danh), hoặc bấm "Gửi thư cho người khác" trên trang.
 
-Toàn bộ trang nằm trong `index.html`. `og.png` là ảnh xem trước khi chia sẻ link lên Messenger, Zalo, Facebook.
+Toàn bộ trang nằm trong `index.html`. `og-2010.png` là ảnh banner xem trước khi chia sẻ link lên Messenger, Zalo, Facebook.
