@@ -172,6 +172,8 @@ h1 em{color:var(--accent)}
 .paper .c1{--img:var(--cluster-c);right:-30px;top:-40px}
 .paper .c2{--img:var(--cluster-d);left:-32px;bottom:-34px}
 @media (max-width:520px){.paper .c1{right:-14px;top:-36px}.paper .c2{left:-14px;bottom:-30px}}
+/* short laptop screens: keep the letter and its buttons in one view */
+@media (min-width:861px) and (max-height:860px){.letter-scene{padding-top:44px;gap:16px}.paper{padding-block:30px 26px}.emblem-flower{width:104px}.emblem strong{font-size:27px}.paper hr{margin:14px 0 2px}.salute{margin-top:8px}.closing{margin-top:14px}}
 .emblem{margin:6px 0 0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px}
 .emblem-flower{width:150px;aspect-ratio:1;max-width:100%;border-radius:50%;
   background:var(--flower-img,none) center/100% no-repeat,radial-gradient(circle,var(--flower-tint,#fde3ec) 0 50%,transparent 71%)}
@@ -204,7 +206,7 @@ h1 em{color:var(--accent)}
 .btn.primary:hover{transform:translateY(-2px);box-shadow:0 16px 30px -14px var(--accent)}
 .btn.ghost{background:var(--field);color:var(--fg);border-color:var(--line)}
 .btn.ghost:hover{background:color-mix(in srgb,var(--accent) 12%,var(--field))}
-.btn.plain{background:none;color:var(--muted);text-decoration:underline;text-underline-offset:4px}
+.btn.plain{background:color-mix(in srgb,var(--bg) 70%,transparent);color:var(--muted);text-decoration:underline;text-underline-offset:4px}
 .btn:active{transform:scale(.97)}
 .toast{margin:-8px 0 0;min-height:1.5em;font-size:14px;color:var(--accent);text-align:center}
 .foot{margin:0;font-size:13px;color:var(--muted);text-align:center}
